@@ -15,7 +15,7 @@
 #
 
 name "postgresql"
-default_version "9.2.24" # NOTE: This version is EoL, but many downstream users take the default, and we shouldn't break them
+default_version "10.0"
 
 license "PostgreSQL"
 license_file "COPYRIGHT"
@@ -28,11 +28,35 @@ dependency "ncurses"
 dependency "libossp-uuid"
 dependency "config_guess"
 
+version "10.0" do
+  source sha256: "712f5592e27b81c5b454df96b258c14d94b6b03836831e015c65d6deeae57fd1"
+end
+
 #
 # Version 9.6
 #
 version "9.6.10" do
   source sha256: "8615acc56646401f0ede97a767dfd27ce07a8ae9c952afdb57163b7234fe8426"
+end
+
+version "9.2.22" do
+  source sha256: "a70e94fa58776b559a8f7b5301371ac4922c9e3ed313ccbef20862514de7c192"
+end
+
+version "9.2.21" do
+  source sha256: "0697e843523ee60c563f987f9c65bc4201294b18525d6e5e4b2c50c6d4058ef9"
+end
+
+version "9.2.14" do
+  source md5: "ce2e50565983a14995f5dbcd3c35b627"
+end
+
+version "9.2.10" do
+  source md5: "7b81646e2eaf67598d719353bf6ee936"
+end
+
+version "9.2.9" do
+  source md5: "38b0937c86d537d5044c599273066cfc"
 end
 
 #
@@ -166,8 +190,15 @@ source url: "https://ftp.postgresql.org/pub/source/v#{version}/postgresql-#{vers
 
 relative_path "postgresql-#{version}"
 
+dependency "openssl"
+dependency "zlib"
+
 build do
   env = with_standard_compiler_flags(with_embedded_path)
+
+  if version.start_with? "10"
+    patch source: "postgresql-10.0-do-not-build-server.patch"
+  end
 
   update_config_guess(target: "config")
 
@@ -176,9 +207,11 @@ build do
           " --with-libedit-preferred" \
           " --with-openssl" \
           " --with-ossp-uuid" \
+          " --with-zlib" \
+          " --without-readline" \
           " --with-includes=#{install_dir}/embedded/include" \
           " --with-libraries=#{install_dir}/embedded/lib", env: env
 
-  make "world -j #{workers}", env: env
-  make "install-world", env: env
+  make "-j #{workers}", env: env
+  make "install", env: env
 end
