@@ -34,7 +34,7 @@ build do
   gem "install pg" \
       " --version '#{version}'" \
       " --bindir '#{install_dir}/embedded/bin'" \
-      "  --no-document", env: env
+      " --no-document" \
       " -- " \
       " --with-pg-config=#{install_dir}/embedded/bin/pg_config", env: env
 end
