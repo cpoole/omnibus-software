@@ -20,10 +20,11 @@ default_version "1.1.4"
 license "BSD-2-Clause"
 license_file "https://raw.githubusercontent.com/ged/ruby-pg/master/LICENSE"
 license_file "https://raw.githubusercontent.com/ged/ruby-pg/master/BSDL"
-# pg gem does not have any dependencies. We only install it from
-# rubygems here.
+
 skip_transitive_dependency_licensing true
 
+# pg gem needs libpq through omnibus so to use same version of libssl
+dependency "postgresql"
 dependency "ruby"
 dependency "rubygems"
 
@@ -34,4 +35,6 @@ build do
       " --version '#{version}'" \
       " --bindir '#{install_dir}/embedded/bin'" \
       "  --no-document", env: env
+      " -- " \
+      " --with-pg-config=#{install_dir}/embedded/bin/pg_config", env: env
 end
