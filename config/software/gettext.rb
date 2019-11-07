@@ -14,23 +14,22 @@
 # limitations under the License.
 #
 
-name "e2fsprogs"
-default_version "1.44.5"
+name "gettext"
+default_version "0.20.1"
 
 license "MIT"
 license_file "README"
 skip_transitive_dependency_licensing true
 
-dependency "gettext"
 
-version "1.44.5" do
-  source md5: "8d78b11d04d26c0b2dd149529441fa80"
+version "0.20.1" do
+  source md5: "9ed9e26ab613b668e0026222a9c23639"
 end
 
 # ftp on ftp.ossp.org is unavaiable so we must use another mirror site.
-source url: "https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.44.5/e2fsprogs-1.44.5.tar.gz"
+source url: "https://ftp.gnu.org/gnu/gettext/gettext-0.20.1.tar.xz"
 
-relative_path "e2fsprogs-#{version}"
+relative_path "gettext-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
@@ -38,11 +37,25 @@ build do
   update_config_guess
 
   command "./configure" \
-          " --prefix=#{install_dir}/embedded"\
-          " --disable-e2initrd-helper", env: env
+            "--disable-dependency-tracking",
+            "--disable-silent-rules",
+            "--disable-debug",
+            "--prefix=#{install_dir}/embedded",
+            "--with-included-gettext",
+            # Work around a gnulib issue with macOS Catalina
+            "gl_cv_func_ftello_works=yes",
+            "--with-included-glib",
+            "--with-included-libcroco",
+            "--with-included-libunistring",
+            "--with-emacs",
+            "--disable-java",
+            "--disable-csharp",
+            # Don't use VCS systems to create these archives
+            "--without-git",
+            "--without-cvs",
+            "--without-xz", env: env
 
   make "-j #{workers}", env: env
   make "install", env: env
-  make "install-libs", env: env
 
 end
