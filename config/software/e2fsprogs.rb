@@ -29,7 +29,7 @@ end
 # ftp on ftp.ossp.org is unavaiable so we must use another mirror site.
 source url: "https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.44.5/e2fsprogs-1.44.5.tar.gz"
 
-relative_path "uuid-#{version}"
+relative_path "e2fsprogs-#{version}"
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
