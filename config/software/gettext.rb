@@ -37,22 +37,22 @@ build do
   update_config_guess
 
   command "./configure" \
-            "--disable-dependency-tracking",
-            "--disable-silent-rules",
-            "--disable-debug",
-            "--prefix=#{install_dir}/embedded",
-            "--with-included-gettext",
+            "--disable-dependency-tracking" \
+            "--disable-silent-rules" \
+            "--disable-debug" \
+            "--prefix=#{install_dir}/embedded" \
+            "--with-included-gettext" \
             # Work around a gnulib issue with macOS Catalina
-            "gl_cv_func_ftello_works=yes",
-            "--with-included-glib",
-            "--with-included-libcroco",
-            "--with-included-libunistring",
-            "--with-emacs",
-            "--disable-java",
-            "--disable-csharp",
+            "gl_cv_func_ftello_works=yes" \
+            "--with-included-glib" \
+            "--with-included-libcroco" \
+            "--with-included-libunistring" \
+            "--with-emacs" \
+            "--disable-java" \
+            "--disable-csharp" \
             # Don't use VCS systems to create these archives
-            "--without-git",
-            "--without-cvs",
+            "--without-git"\ 
+            "--without-cvs"\
             "--without-xz", env: env
 
   make "-j #{workers}", env: env
