@@ -51,8 +51,8 @@ build do
             "--disable-java" \
             "--disable-csharp" \
             # Don't use VCS systems to create these archives
-            "--without-git"\ 
-            "--without-cvs"\
+            "--without-git" \
+            "--without-cvs" \
             "--without-xz", env: env
 
   make "-j #{workers}", env: env
