@@ -39,7 +39,7 @@ build do
   command "./configure" \
           " --prefix=#{install_dir}/embedded"\
           " --disable-e2initrd-helper" \
-          " MKDIR_P=mkdir -p", env: env
+          " MKDIR_P='mkdir -p'", env: env
 
   make "-j #{workers}", env: env
   make "install", env: env
