@@ -25,8 +25,8 @@ dependency "zlib"
 dependency "openssl"
 dependency "libedit"
 dependency "ncurses"
-dependency "libossp-uuid"
 dependency "config_guess"
+dependency "e2fsprogs"
 
 version "10.0" do
   source sha256: "712f5592e27b81c5b454df96b258c14d94b6b03836831e015c65d6deeae57fd1"
@@ -206,7 +206,7 @@ build do
           " --prefix=#{install_dir}/embedded" \
           " --with-libedit-preferred" \
           " --with-openssl" \
-          " --with-ossp-uuid" \
+          " --with-ossp=e2fs" \
           " --with-zlib" \
           " --without-readline" \
           " --with-includes=#{install_dir}/embedded/include" \
