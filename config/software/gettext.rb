@@ -34,7 +34,7 @@ relative_path "gettext-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  update_config_guess(target: "config")
+  update_config_guess
 
   command "./configure" \
             " --disable-dependency-tracking" \
@@ -42,7 +42,6 @@ build do
             " --disable-debug" \
             " --prefix=#{install_dir}/embedded" \
             " --with-included-gettext" \
-            #  Work around a gnulib issue with macOS Catalina
             " gl_cv_func_ftello_works=yes" \
             " --with-included-glib" \
             " --with-included-libcroco" \
@@ -50,7 +49,6 @@ build do
             " --with-emacs" \
             " --disable-java" \
             " --disable-csharp" \
-            #  Don't use VCS systems to create these archives
             " --without-git" \
             " --without-cvs" \
             " --without-xz", env: env
