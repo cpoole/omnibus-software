@@ -46,7 +46,7 @@ build do
           " --disable-e2initrd-helper", env: env
 
   make "-j #{workers}", env: env
-  make "install", env: env
+  #make "install", env: env
   make "install-libs", env: env
 
 end
