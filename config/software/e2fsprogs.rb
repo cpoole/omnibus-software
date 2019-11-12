@@ -43,7 +43,8 @@ build do
           " --prefix=#{install_dir}/embedded"\
           " --with-includes=#{install_dir}/embedded/include" \
           " --with-libraries=#{install_dir}/embedded/lib" \
-          " --disable-e2initrd-helper", env: env
+          " --disable-e2initrd-helper" \
+          " MKDIR_P=mkdir p", env: env
 
   make "-j #{workers}", env: env
   #make "install", env: env
