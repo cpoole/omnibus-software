@@ -41,6 +41,8 @@ build do
 
   command "./configure" \
           " --prefix=#{install_dir}/embedded"\
+          " --with-includes=#{install_dir}/embedded/include" \
+          " --with-libraries=#{install_dir}/embedded/lib" \
           " --disable-e2initrd-helper", env: env
 
   make "-j #{workers}", env: env

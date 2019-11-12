@@ -42,6 +42,8 @@ build do
             " --disable-debug" \
             " --prefix=#{install_dir}/embedded" \
             " --with-included-gettext" \
+            " --with-includes=#{install_dir}/embedded/include" \
+            " --with-libraries=#{install_dir}/embedded/lib" \
             " gl_cv_func_ftello_works=yes" \
             " --with-included-glib" \
             " --with-included-libcroco" \
