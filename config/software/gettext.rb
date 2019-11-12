@@ -34,7 +34,7 @@ relative_path "gettext-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
-  update_config_guess
+  update_config_guess(target: "config")
 
   command "./configure" \
             " --disable-dependency-tracking" \
