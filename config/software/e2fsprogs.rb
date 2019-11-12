@@ -35,6 +35,8 @@ relative_path "e2fsprogs-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  env.merge({"MKDIR_P" => "mkdir -p"})
+
   update_config_guess
 
   command "./configure" \
